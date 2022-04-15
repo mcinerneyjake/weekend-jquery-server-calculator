@@ -2,7 +2,17 @@ $(document).ready(onReady);
 
 function onReady() {
   console.log('jQuery');
+  $('#equalsButton').on('click', mathEquationOnSubmit);
   $('#clearButton').on('click', clearCalculator);
+}
+
+function mathEquationOnSubmit() {
+  let newMathEquation = {
+    firstNumber: Number($('#firstNumberInput').val()),
+    secondNumber: Number($('#secondNumberInput').val()),
+  };
+  console.log(newMathEquation);
+  clearCalculator();
 }
 
 /////////////////////////////////////////////////////////
@@ -31,4 +41,6 @@ function clearCalculator() {
   $('#firstNumberInput').val('');
   $('#secondNumberInput').val('');
 }
+
+function collectMathData() {}
 /////////////////////////////////////////////////////////
