@@ -2,6 +2,7 @@ $(document).ready(onReady);
 
 function onReady() {
   console.log('jQuery');
+  $('#clearButton').on('click', clearCalculator);
 }
 
 /////////////////////////////////////////////////////////
@@ -24,5 +25,10 @@ function multiplyNumbers(number1, number2) {
 function divideNumbers(number1, number2) {
   let dividedNumbers = number1 / number2;
   $('#equationContainer').append(dividedNumbers);
+}
+
+function clearCalculator() {
+  $('#firstNumberInput').val('');
+  $('#secondNumberInput').val('');
 }
 /////////////////////////////////////////////////////////
