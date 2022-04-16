@@ -23,8 +23,24 @@ app.post('/calculator', (req, res) => {
   console.log(calculatorDataFromClient);
 
   if (calculatorDataFromClient.mathOperator === '+') {
-    console.log(addNumbers(calculatorDataFromClient.firstNumber, calculatorDataFromClient.secondNumber));
+    addNumbers(Number(calculatorDataFromClient.firstNumber), Number(calculatorDataFromClient.secondNumber));
   }
+  if (calculatorDataFromClient.mathOperator === '-') {
+    console.log(
+      subtractNumbers(Number(calculatorDataFromClient.firstNumber), Number(calculatorDataFromClient.secondNumber))
+    );
+  }
+  if (calculatorDataFromClient.mathOperator === '*') {
+    console.log(
+      multiplyNumbers(Number(calculatorDataFromClient.firstNumber), Number(calculatorDataFromClient.secondNumber))
+    );
+  }
+  if (calculatorDataFromClient.mathOperator === '/') {
+    console.log(
+      divideNumbers(Number(calculatorDataFromClient.firstNumber), Number(calculatorDataFromClient.secondNumber))
+    );
+  }
+
   res.sendStatus(200);
 });
 
@@ -38,13 +54,13 @@ function addNumbers(number1, number2) {
 }
 
 function subtractNumbers(number1, number2) {
-  let subtractedNumbers = number1 - number2;
+  return Number(number1 - number2);
 }
 
 function multiplyNumbers(number1, number2) {
-  let multipliedNumbers = number1 * number2;
+  return Number(number1 * number2);
 }
 
 function divideNumbers(number1, number2) {
-  let dividedNumbers = number1 / number2;
+  return Number(number1 / number2);
 }
