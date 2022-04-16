@@ -1,4 +1,4 @@
-const calculatorStorage = [];
+let calculatorStorage = [];
 let addTotal;
 let subractTotal;
 let multiplyTotal;
@@ -52,19 +52,19 @@ app.post('/calculator', (req, res) => {
   calculatorStorage.push(calculatorDataFromClient);
   console.log(calculatorDataFromClient);
 
-  for (object of calculatorStorage) {
+  for (let i = 0; i < calculatorStorage.length; i++) {
     if (calculatorDataFromClient.mathOperator === '+') {
       addNumbers(Number(calculatorDataFromClient.firstNumber), Number(calculatorDataFromClient.secondNumber));
-      object.addTotal = addTotal;
+      calculatorStorage[calculatorStorage.length - 1].addTotal = addTotal;
     } else if (calculatorDataFromClient.mathOperator === '-') {
       subtractNumbers(Number(calculatorDataFromClient.firstNumber), Number(calculatorDataFromClient.secondNumber));
-      object.subractTotal = subractTotal;
+      calculatorStorage[calculatorStorage.length - 1].subractTotal = subractTotal;
     } else if (calculatorDataFromClient.mathOperator === '*') {
       multiplyNumbers(Number(calculatorDataFromClient.firstNumber), Number(calculatorDataFromClient.secondNumber));
-      object.multiplyTotal = multiplyTotal;
+      calculatorStorage[calculatorStorage.length - 1].multiplyTotal = multiplyTotal;
     } else if (calculatorDataFromClient.mathOperator === '/') {
       divideNumbers(Number(calculatorDataFromClient.firstNumber), Number(calculatorDataFromClient.secondNumber));
-      object.divideTotal = divideTotal;
+      calculatorStorage[calculatorStorage.length - 1].divideTotal = divideTotal;
     }
   }
   res.sendStatus(200);
