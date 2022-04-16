@@ -1,5 +1,8 @@
 const calculatorStorage = [];
+let total;
 
+//////////////////////////////////////////
+// SERVER
 const express = require('express');
 const bodyParser = require('body-parser');
 
@@ -15,6 +18,30 @@ const PORT = 5000;
 app.listen(PORT, function () {
   console.log(`The server is running! Check it out at http://localhost:${PORT}!`);
 });
+//////////////////////////////////////////
+
+//////////////////////////////////////////
+// MATH FUNCTIONS
+
+function addNumbers(number1, number2) {
+  total = Number(number1 + number2);
+}
+
+function subtractNumbers(number1, number2) {
+  total = Number(number1 - number2);
+}
+
+function multiplyNumbers(number1, number2) {
+  total = Number(number1 * number2);
+}
+
+function divideNumbers(number1, number2) {
+  total = Number(number1 / number2);
+}
+//////////////////////////////////////////
+
+//////////////////////////////////////////
+// POST and GET FUNCTIONS
 
 app.post('/calculator', (req, res) => {
   console.log('POST /calculator');
@@ -22,23 +49,17 @@ app.post('/calculator', (req, res) => {
   calculatorStorage.push(calculatorDataFromClient);
   console.log(calculatorDataFromClient);
 
-  if (calculatorDataFromClient.mathOperator === '+') {
-    addNumbers(Number(calculatorDataFromClient.firstNumber), Number(calculatorDataFromClient.secondNumber));
-  }
-  if (calculatorDataFromClient.mathOperator === '-') {
-    console.log(
-      subtractNumbers(Number(calculatorDataFromClient.firstNumber), Number(calculatorDataFromClient.secondNumber))
-    );
-  }
-  if (calculatorDataFromClient.mathOperator === '*') {
-    console.log(
-      multiplyNumbers(Number(calculatorDataFromClient.firstNumber), Number(calculatorDataFromClient.secondNumber))
-    );
-  }
-  if (calculatorDataFromClient.mathOperator === '/') {
-    console.log(
-      divideNumbers(Number(calculatorDataFromClient.firstNumber), Number(calculatorDataFromClient.secondNumber))
-    );
+  for (object of calculatorStorage) {
+    if (calculatorDataFromClient.mathOperator === '+') {
+      addNumbers(Number(calculatorDataFromClient.firstNumber), Number(calculatorDataFromClient.secondNumber));
+    } else if (calculatorDataFromClient.mathOperator === '-') {
+      subtractNumbers(Number(calculatorDataFromClient.firstNumber), Number(calculatorDataFromClient.secondNumber));
+    } else if (calculatorDataFromClient.mathOperator === '*') {
+      multiplyNumbers(Number(calculatorDataFromClient.firstNumber), Number(calculatorDataFromClient.secondNumber));
+    } else if (calculatorDataFromClient.mathOperator === '/') {
+      divideNumbers(Number(calculatorDataFromClient.firstNumber), Number(calculatorDataFromClient.secondNumber));
+    }
+    object.total = total;
   }
 
   res.sendStatus(200);
@@ -48,19 +69,4 @@ app.get('/calculator', (req, res) => {
   console.log('GET /calculator');
   res.send(calculatorStorage);
 });
-
-function addNumbers(number1, number2) {
-  return Number(number1 + number2);
-}
-
-function subtractNumbers(number1, number2) {
-  return Number(number1 - number2);
-}
-
-function multiplyNumbers(number1, number2) {
-  return Number(number1 * number2);
-}
-
-function divideNumbers(number1, number2) {
-  return Number(number1 / number2);
-}
+//////////////////////////////////////////
