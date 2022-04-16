@@ -1,5 +1,8 @@
 const calculatorStorage = [];
-let total;
+let addTotal;
+let subractTotal;
+let multiplyTotal;
+let divideTotal;
 
 //////////////////////////////////////////
 // SERVER
@@ -24,19 +27,19 @@ app.listen(PORT, function () {
 // MATH FUNCTIONS
 
 function addNumbers(number1, number2) {
-  total = Number(number1 + number2);
+  addTotal = Number(number1 + number2);
 }
 
 function subtractNumbers(number1, number2) {
-  total = Number(number1 - number2);
+  subractTotal = Number(number1 - number2);
 }
 
 function multiplyNumbers(number1, number2) {
-  total = Number(number1 * number2);
+  multiplyTotal = Number(number1 * number2);
 }
 
 function divideNumbers(number1, number2) {
-  total = Number(number1 / number2);
+  divideTotal = Number(number1 / number2);
 }
 //////////////////////////////////////////
 
@@ -52,16 +55,18 @@ app.post('/calculator', (req, res) => {
   for (object of calculatorStorage) {
     if (calculatorDataFromClient.mathOperator === '+') {
       addNumbers(Number(calculatorDataFromClient.firstNumber), Number(calculatorDataFromClient.secondNumber));
+      object.addTotal = addTotal;
     } else if (calculatorDataFromClient.mathOperator === '-') {
       subtractNumbers(Number(calculatorDataFromClient.firstNumber), Number(calculatorDataFromClient.secondNumber));
+      object.subractTotal = subractTotal;
     } else if (calculatorDataFromClient.mathOperator === '*') {
       multiplyNumbers(Number(calculatorDataFromClient.firstNumber), Number(calculatorDataFromClient.secondNumber));
+      object.multiplyTotal = multiplyTotal;
     } else if (calculatorDataFromClient.mathOperator === '/') {
       divideNumbers(Number(calculatorDataFromClient.firstNumber), Number(calculatorDataFromClient.secondNumber));
+      object.divideTotal = divideTotal;
     }
-    object.total = total;
   }
-
   res.sendStatus(200);
 });
 

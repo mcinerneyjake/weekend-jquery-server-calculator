@@ -51,12 +51,32 @@ function getMathDataFromServer() {
     console.log('the server sent back the completed equation:');
     console.log(response);
     $('#equationContainer').empty();
-    $('#total').empty();
     for (let equation of response) {
-      $('#equationContainer').append(
-        `<li>${equation.firstNumber} ${equation.mathOperator} ${equation.secondNumber} = ${equation.total}`
-      );
-      $('#total').append(`${Number(equation.total)}`);
+      if (equation.mathOperator === '+') {
+        $('#total').empty();
+        $('#equationContainer').append(
+          `<li>${equation.firstNumber} ${equation.mathOperator} ${equation.secondNumber} = ${equation.addTotal}`
+        );
+        $('#total').append(`${Number(equation.addTotal)}`);
+      } else if (equation.mathOperator === '-') {
+        $('#total').empty();
+        $('#equationContainer').append(
+          `<li>${equation.firstNumber} ${equation.mathOperator} ${equation.secondNumber} = ${equation.subractTotal}`
+        );
+        $('#total').append(`${Number(equation.subractTotal)}`);
+      } else if (equation.mathOperator === '*') {
+        $('#total').empty();
+        $('#equationContainer').append(
+          `<li>${equation.firstNumber} ${equation.mathOperator} ${equation.secondNumber} = ${equation.multiplyTotal}`
+        );
+        $('#total').append(`${Number(equation.multiplyTotal)}`);
+      } else if (equation.mathOperator === '/') {
+        $('#total').empty();
+        $('#equationContainer').append(
+          `<li>${equation.firstNumber} ${equation.mathOperator} ${equation.secondNumber} = ${equation.divideTotal}`
+        );
+        $('#total').append(`${Number(equation.divideTotal)}`);
+      }
     }
   });
 }
